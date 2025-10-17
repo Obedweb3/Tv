@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kenya TV Channels</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .channel-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    .channel-card img {
+      max-width: 100px;
+      margin-bottom: 10px;
+    }
+    .channel-card h2 {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #0077cc;
+    }
+    .channel-card p {
+      font-size: 14px;
+      color: #666;
+    }
+    .channel-card video {
+      width: 100%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🇰🇪 Kenya TV Channels</h1>
+  <div class="channel-grid" id="channels"></div>
+
+  <script>
+    fetch("https://casper-tech-apis.vercel.app/api/tv/kenya")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("channels");
+        data.channels.forEach(channel => {
+          const card = document.createElement("div");
+          card.className = "channel-card";
+          card.innerHTML = `
+            <img src="${channel.logo}" alt="${channel.name} logo" />
+            <h2>${channel.name}</h2>
+            <p>${channel.description}</p>
+            <video controls src="${channel.streamUrl}" poster="${channel.logo}"></video>
+          `;
+          container.appendChild(card);
+        });
+      });
+  </script>
+</body>
+  </html>
+  
